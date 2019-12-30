@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>별찍기</title>
+</head>
+<body>
+
+    <script>
+        for(let star= 0; star < 5; star+=1){
+            console.log('*'.repeat(star + 1));
+        }    
+        // *
+        // **
+        // ***
+        // ****
+        // *****
+        console.log('---------------------------');
+
+        for(let star= 5; star >= 1; star-=1){
+            console.log('*'.repeat(star));
+        }
+        // *****
+        // ****
+        // ***
+        // **
+        // *
+        console.log('---------------------------');
+
+
+        for(let star = 5; star >= 1; star -= 1){
+            console.log(' '.repeat(5-star) + '*'.repeat(star));
+        }
+        // *****
+        //  ****
+        //   ***
+        //    **
+        //     *
+        console.log('---------------------------');
+
+
+        for(let star = 9; star >=1; star -=2){
+            console.log(' '.repeat((9-star)/2) + '*'.repeat(star));
+        }
+        // *********
+        //  *******
+        //   *****
+        //    ***
+        //     *
+        console.log('---------------------------');
+
+
+
+    </script>
+</body>
+</html>

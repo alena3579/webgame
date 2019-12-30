@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>구구단</title>
+</head>
+<body>
+
+    <script>
+        // while(true){
+        //     let num1 = Math.floor(Math.random() * 9) + 1    
+        //     let num2 = Math.floor(Math.random() * 9) + 1    
+        //     let result = num1 * num2;
+        //     let tof = true;
+
+        //     while(tof){
+        //         let input = prompt(String(num1) + ' 곱하기 ' + String(num2) + '는?');
+        //         if(result === Number(input)){
+        //             alert('딩동댕');
+        //             tof = false;
+        //         }else{
+        //             alert('땡');
+        //         }
+        //     }
+        // }
+
+        while(true){    
+            let num1 = Math.floor(Math.random() * 9) + 1;  // 1 ~ 9까지 
+            let num2 = Math.ceil(Math.random() * 9);  // 1 ~ 9까지 
+            let result = num1 * num2;
+            let tof = true
+            while(tof){
+                let quiz = prompt(num1 + ' 곱하기 ' + num2 + '는?' );
+                if(result === Number(quiz)){
+                    alert('딩동댕');
+                    tof = false;
+                }else{
+                    alert('땡');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

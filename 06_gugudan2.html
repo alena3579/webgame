@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>구구단 웹페이지에 표시하기</title>
+</head>
+<body>
+    
+  
+    <script>
+        let 숫자1 = Math.ceil(Math.random() * 9);    
+        let 숫자2 = Math.ceil(Math.random() * 9);    
+        let 결과 = 숫자1 * 숫자2;
+
+        let 바디 = document.body;
+        let 숫자창 = document.createElement('div');
+        바디.append(숫자창);
+        숫자창.textContent = 숫자1 + ' 곱하기 ' + 숫자2 + '는?'; 
+        바디.append(숫자창);
+
+        let 폼 = document.createElement('form');
+        바디.append(폼);
+        let 입력창 = document.createElement('input');
+        입력창.type = 'number';
+        폼.append(입력창);
+        let 버튼 = document.createElement('button');
+        버튼.textContent = '입력';
+        폼.append(버튼);
+
+        let 결과창 = document.createElement('div');
+        바디.append(결과창);
+
+        폼.addEventListener('submit', function(e){
+            e.preventDefault();
+            // console.log(결과, 입력창.value);
+            if(결과 === Number(입력창.value)){
+                결과창.textContent = '딩동댕!';
+                입력창.value = '';
+                입력창.focus();
+                숫자1 = Math.ceil(Math.random() * 9);    
+                숫자2 = Math.ceil(Math.random() * 9); 
+                결과 = 숫자1 * 숫자2;
+                숫자창.textContent = 숫자1 + ' 곱하기 ' + 숫자2 + '는?'; 
+            }else{
+                결과창.textContent = '땡!';
+                입력창.value = '';
+                입력창.focus();
+            }
+        });
+
+    </script>
+
+    <!-- <div id="question"></div>
+    <form id="subForm">
+        <input type="number">
+        <button type="submit">입력</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        let num1 = Math.ceil(Math.random() * 9);
+        let num2 = Math.ceil(Math.random() * 9);
+        let res = num1 * num2;
+        let question = num1 + ' 곱하기 ' + num2 + '는?';
+
+        let quesAria = document.getElementById('question');
+        quesAria.textContent = question;
+        let form1 = document.getElementById('subForm');
+        let input = document.getElementsByTagName('input');
+        let button = document.getElementsByTagName('button');
+        let result = document.getElementById('result');
+
+        form1.addEventListener('submit', function(e){
+            e.preventDefault();
+            if(res === Number(input.value)){
+                result.textContent = '딩동댕!';
+                input.value = '';
+                // input.focus();
+                num1 = Math.ceil(Math.random() + 9);
+                num2 = Math.ceil(Math.random() + 9);
+                res = num1 * num2;
+                quesAria.textContent = question;
+
+            }else{
+                result.textcontent = '땡!';
+                input.value = '';
+                // input.focus();
+            }
+        });
+
+    </script> -->
+</body>
+</html>

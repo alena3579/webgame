@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>끝말잇기 게임</title>
+</head>
+<body>
+
+
+    <script>
+        let word = '애즈랜드';
+        while(true){
+            let newWord = prompt(word);
+            if(word[word.length - 1] === newWord[0]){
+                alert('딩동댕');
+                word = newWord;
+            }else{
+                alert('땡');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>window 객체 - 끝말잇기</title>
+</head>
+<body>
+
+
+
+    <script>
+        window['document']; //둘다 동일
+        window.document;    //window 생략가능
+
+        let 바디 = document.body;
+        let  단어 = document.createElement('div');
+        단어.textContent = '제로초';
+        바디.append(단어);
+        let 폼 = document.createElement('form');
+        바디.append(폼);
+        let 입력창 = document.createElement('input');
+        폼.append(입력창);
+        let 버튼 = document.createElement('button');
+        버튼.textContent= '입력';
+        폼.append(버튼);
+        let 결과창 = document.createElement('div');
+        바디.append(결과창);
+
+        폼.addEventListener('submit', function (e){ //콜백함수, 익명함수
+            e.preventDefault();
+            if(단어.textContent[단어.textContent.length -1] === 입력창.value[0]){
+                결과창.textContent = '딩동댕';
+                단어.textContent = 입력창.value;
+                입력창.value = '';
+                입력창.focus();
+            }else{
+                결과창.textContent = '땡';
+                입력창.value = '';
+                입력창.focus();
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>
