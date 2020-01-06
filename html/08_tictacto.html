@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>틱택토</title>
+</head>
+<body>
+    <style>
+        table td{
+            border: 2px solid #000;
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            font-size: 35px;
+        }
+    </style>
+
+    <!-- <table>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table> -->
+
+    <script>
+        let table = document.createElement('table');
+        let tds = [];
+        let trs = [];
+        let turn = 'X';
+        let result = document.createElement('h3');
+        document.body.append(result);
+        let callback = function (e){
+            // console.log('내가 몇칸일까?');
+            // console.log(e.target.parentNode);
+            let whatTr = trs.indexOf(e.target.parentNode);
+            let whatTd = tds[whatTr].indexOf(e.target);
+            console.log(whatTr, whatTd);
+
+            if(tds[whatTr][whatTd].textContent !== ''){   //칸이 이미 채워져 있는가?
+                // console.log('빈칸아님');
+            }else{
+                // console.log('빈칸');
+                tds[whatTr][whatTd].textContent = turn;
+
+                //세칸이 채워졌나?
+                var full = false;
+                //가로줄 검사
+                if(tds[whatTr][0].textContent === turn 
+                && tds[whatTr][1].textContent === turn 
+                && tds[whatTr][2].textContent === turn ){
+                    full = true;
+                }
+                //세로줄 검사
+                if(tds[0][whatTd].textContent === turn 
+                && tds[1][whatTd].textContent === turn 
+                && tds[2][whatTd].textContent === turn ){
+                    full = true;
+                }
+                //대각선 검사 \
+                if(whatTr - whatTd === 0 ){   //대각선 검사 필요한 경우
+                    if(tds[0][0].textContent === turn 
+                    && tds[1][1].textContent === turn
+                    && tds[2][2].textContent === turn ){
+                        full = true;
+                    }
+                }
+                //대각선 검사 /
+                if( Math.abs(whatTr - whatTd) === 2){   //대각선 검사 필요한 경우
+                    if(tds[2][0].textContent === turn 
+                    && tds[1][1].textContent === turn
+                    && tds[0][2].textContent === turn ){
+                        full = true;
+                    }
+                }
+                //다 찼으면
+                if(full){
+                    result.textContent = turn + '님이 승리!';
+                    turn = 'X';
+                    tds.forEach(function(tr){
+                        tr.forEach(function(td){
+                            td.textContent = '';
+                        });
+                    });
+                }else{  //다 안찼으면
+                    if(turn === 'X'){
+                        turn = 'O';
+                    }else{
+                        turn = 'X';
+                    }
+                }
+            }
+
+            
+            
+        };
+
+        for(let i=0;i<3;i++){
+            let tr = document.createElement('tr');
+            trs.push(tr);
+            tds.push([]);
+            for(let j=0;j<3;j++){
+                let td = document.createElement('td');
+                td.addEventListener('click', callback);
+                tds[i].push(td);
+                tr.append(td);
+            }
+            table.append(tr);
+        }
+        document.body.append(table);
+        console.log(trs, tds);
+
+
+    </script>
+
+</body>
+</html>
