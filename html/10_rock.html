@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>가위바위보</title>
+</head>
+<body>
+    <style>
+        #computer{
+            width: 150px;
+            height: 243px;
+            background: url('../img/23182267.jpg') 0 0;
+        }
+        
+    </style>
+
+    <div id="computer">
+
+    </div>
+    <div>
+        <button id="rock">바위</button>
+        <button id="scissor">가위</button>
+        <button id="paper">보</button>
+    </div>
+
+    <script>
+        let left = 0;
+        setInterval(() => {
+            if(left === 0){
+                left = '-142px';
+            }else if(left === '-142px'){
+                left = '-284px';
+            }else{
+                left = 0;
+            }
+            document.querySelector('#computer').style.background = 'url("../img/23182267.jpg")'+ left +'0';
+
+        }, 100);
+    </script>
+</body>
+</html>
