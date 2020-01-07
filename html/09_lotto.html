@@ -8,13 +8,32 @@
 </head>
 <body>
     <style>
-        #결과창{
-
+        #myLotto input {
+            width: 30px;
         }
+
     </style>    
 
+    <h3>당첨숫자</h3>
     <div id="결과창"></div>
+    <h3>보너스!</h3>
     <div class="보너스"></div>
+
+    <h3>내가 산 로또</h3>
+    <div id="myLotto">
+        <form>
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <!-- <h5>보너스</h5> -->
+            <!-- <input type="text" class="bonus" placeholder="보너스"> -->
+            <button>입력!</button>
+        </form> 
+    </div>
+    <h2 id="당첨결과"></h2>
 
     <script>
         let 후보군 = Array(45).fill().map(function(요소, 인덱스){
@@ -34,17 +53,99 @@
 
         let 결과창 = document.getElementById('결과창');
 
-        for(let i = 0; i < 당첨숫자들.length; i++){
-            setTimeout(function 비동기콜백함수(){
-                let 공 = document.createElement('div');
-                공.textContent = 당첨숫자들[i];
-                결과창.appendChild(공);
-            }, 1000);
+        function 공꾸미기(숫자, 결과창) {
+            let 공 = document.createElement('div');
+            공.textContent = 숫자;
+            공.style.display = 'inline-block';
+            공.style.border = '1px solid black';
+            공.style.borderRadius = '50%';
+            공.style.width = '30px';
+            공.style.height = '30px';
+            공.style.textAlign = 'center';
+            공.style.lineHeight = '30px';
+            공.style.marginRight = '10px';
+            공.id = '공아이디' + 숫자;
+            let 배경색;
+            if(숫자 <= 10){
+                공.style.backgroundColor = 'red';                
+            }else if(숫자 <= 20){
+                공.style.backgroundColor = 'orange';
+            }else if(숫자 <= 30){
+                공.style.backgroundColor = 'yellow';
+            }else if(숫자 <= 40){
+                공.style.backgroundColor = 'blue';
+            }else{
+                공.style.backgroundColor = 'green';
+            }
+            결과창.appendChild(공);
         }
-        let 보너스칸 = document.getElementsByClassName('보너스')[0];
-        let 보너스공 = document.createElement('div');
-        보너스공.textContent = 보너스;
-        보너스칸.appendChild(보너스공);
+
+        setTimeout(function 비동기콜백함수(){
+            공꾸미기(당첨숫자들[0],결과창);
+        }, 1000);
+        setTimeout(function 비동기콜백함수(){
+            공꾸미기(당첨숫자들[1],결과창);
+        }, 2000);
+        setTimeout(function 비동기콜백함수(){
+            공꾸미기(당첨숫자들[2],결과창);
+        }, 3000);
+        setTimeout(function 비동기콜백함수(){
+            공꾸미기(당첨숫자들[3],결과창);
+        }, 4000);
+        setTimeout(function 비동기콜백함수(){
+            공꾸미기(당첨숫자들[4],결과창);
+        }, 5000);
+        setTimeout(function 비동기콜백함수(){
+            공꾸미기(당첨숫자들[5],결과창);
+        }, 6000);
+
+        setTimeout(function 비동기콜백함수(){
+            let 보너스칸 = document.getElementsByClassName('보너스')[0];
+           공꾸미기(보너스,보너스칸);
+        }, 7000);
+
+        let 내로또 = document.querySelector('#myLotto form');
+        내로또.addEventListener('submit', function(e){
+            e.preventDefault();
+            let 내번호 = document.getElementsByTagName('input');
+           
+            let 내번호배열 = [];
+            for(let i = 0; i < 6; i++){
+                내번호배열[i] = Number(내번호[i].value);
+            }
+            내번호배열.sort(function(p,c){return p-c;});
+            console.log(내번호배열);
+            console.log(보너스, 내번호배열[6]);
+
+            let 일치개수 = 0;
+            let 불일치보너스;
+            for(let i = 0; i < 6; i++){
+                if(당첨숫자들.indexOf(내번호배열[i]) > -1 ){
+                    console.log(i + '일치'); 
+                    일치개수 ++;
+                } else{
+                    console.log(i + '불일치');
+                    불일치보너스 = 내번호배열[i];
+                }    
+            }
+
+            let 당첨결과 = document.querySelector('#당첨결과');
+
+            if(일치개수 >= 6){
+                당첨결과.textContent = '1등!';
+            }else if(일치개수 >= 5 && 불일치보너스 === 보너스){
+                당첨결과.textContent = '2등!';
+            }else if(일치개수 >= 5){
+                당첨결과.textContent = '3등!';
+            }else if(일치개수 >= 4){
+                당첨결과.textContent = '4등!';
+            }else if(일치개수 >= 3){
+                당첨결과.textContent = '5등!';
+            }else{
+                당첨결과.textContent = '꽝!';
+            }
+        });
+
 
     </script>
 </body>
