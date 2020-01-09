@@ -7,7 +7,43 @@
     <title>window 객체 - 끝말잇기</title>
 </head>
 <body>
-
+    <style>
+        *{ margin: 0;padding: 0; box-sizing: border-box;}
+        html{
+            height: 100%;
+        }
+        body{
+            background: url('../img/2880_1800.png') no-repeat center bottom;
+            background-size: cover;
+            height: 100%;
+            text-align: center;
+        }
+        h2{
+            padding-top: 20%;
+        }
+        form{
+            padding: 1%;
+        }
+        input{
+            border: 2px solid pink;
+            width: 200px;
+            height: 30px;
+            font-size: 15px;
+            border-radius: 15px;
+            text-indent: 15px;
+        }
+        button{
+            width: 100px;
+            height: 30px;
+            background-color: pink;
+            margin-left: 20px;
+            border: none;
+            border-radius: 15px;
+        }
+        div{
+            font-size: 20px;
+        }
+    </style>
 
 
     <script>
@@ -15,8 +51,8 @@
         window.document;    //window 생략가능
 
         let 바디 = document.body;
-        let  단어 = document.createElement('div');
-        단어.textContent = '제로초';
+        let  단어 = document.createElement('h2');
+        단어.textContent = '라디오';
         바디.append(단어);
         let 폼 = document.createElement('form');
         바디.append(폼);
@@ -31,12 +67,12 @@
         폼.addEventListener('submit', function (e){ //콜백함수, 익명함수
             e.preventDefault();
             if(단어.textContent[단어.textContent.length -1] === 입력창.value[0]){
-                결과창.textContent = '딩동댕';
+                결과창.textContent = '딩동댕!';
                 단어.textContent = 입력창.value;
                 입력창.value = '';
                 입력창.focus();
             }else{
-                결과창.textContent = '땡';
+                결과창.textContent = '땡!';
                 입력창.value = '';
                 입력창.focus();
             }
