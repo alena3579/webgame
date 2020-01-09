@@ -7,21 +7,100 @@
     <title>구구단 웹페이지에 표시하기</title>
 </head>
 <body>
-    
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            background-color: lightskyblue;
+        }
+        .wrap{
+            width: 500px;
+            height: 300px;
+            margin: 10% auto;
+            text-align: center;
+        }
+        h2{
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .inner{
+            height: 180px;
+            padding: 50px 0;
+            background-color: #fff;
+            border-radius: 50px;
+        }
+        .numberdiv{
+            display: inline-block;
+            font-size: 30px;
+            color: rgb(65, 188, 236);
+            font-weight: bold;
+        }
+        form{
+            display: inline-block;
+            position: relative;
+            top: -5px;
+        }
+        input{
+            width: 70px;
+            height: 40px;
+            margin: 0 10px;
+            border: 1px solid lightskyblue;
+            font-size: 25px;
+            text-indent: 10px;
+            border-radius: 20px;
+        }
+        button{
+            width: 50px;
+            height: 40px;
+            background-color: rgb(65, 188, 236);
+            border: none;
+            border-radius: 20px;
+            position: relative;
+            top: -2px;
+            color: #fff;
+        }
+        .resultdiv{
+            color: rgb(65, 188, 236);
+            margin-top: 10px;
+            font-size: 22px;
+        }
+    </style>
   
+    <div class="wrap">
+        <h2>구구단 게임</h2>
+        <div class="inner">
+            <!-- <div></div>
+            <form>
+
+                <input type="text">
+                <button>입력</button>
+            </form>
+            <div></div> -->
+        </div>
+
+    </div>
+
+
     <script>
+        let 바디 = document.body;
+        let wrap = document.querySelector('.wrap');
+        let inner = document.querySelector('.inner');
+
+
         let 숫자1 = Math.ceil(Math.random() * 9);    
         let 숫자2 = Math.ceil(Math.random() * 9);    
         let 결과 = 숫자1 * 숫자2;
 
-        let 바디 = document.body;
         let 숫자창 = document.createElement('div');
-        바디.append(숫자창);
-        숫자창.textContent = 숫자1 + ' 곱하기 ' + 숫자2 + '는?'; 
-        바디.append(숫자창);
+        숫자창.className = 'numberdiv';
+        숫자창.textContent = 숫자1 + ' x ' + 숫자2 + ' =  '; 
+        inner.append(숫자창);
 
         let 폼 = document.createElement('form');
-        바디.append(폼);
+        inner.append(폼);
         let 입력창 = document.createElement('input');
         입력창.type = 'number';
         폼.append(입력창);
@@ -30,7 +109,8 @@
         폼.append(버튼);
 
         let 결과창 = document.createElement('div');
-        바디.append(결과창);
+        결과창.className = 'resultdiv';
+        inner.append(결과창);
 
         폼.addEventListener('submit', function(e){
             e.preventDefault();
@@ -42,7 +122,7 @@
                 숫자1 = Math.ceil(Math.random() * 9);    
                 숫자2 = Math.ceil(Math.random() * 9); 
                 결과 = 숫자1 * 숫자2;
-                숫자창.textContent = 숫자1 + ' 곱하기 ' + 숫자2 + '는?'; 
+                숫자창.textContent = 숫자1 + ' x ' + 숫자2 + ' =  '; 
             }else{
                 결과창.textContent = '땡!';
                 입력창.value = '';
