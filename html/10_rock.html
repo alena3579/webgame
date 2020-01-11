@@ -24,6 +24,7 @@
         <button id="scissor" class="btn">가위</button>
         <button id="paper" class="btn">보</button>
     </div>
+    <div class="result"></div>
 
     <script>
         let left = 0;
@@ -32,6 +33,7 @@
             가위 : '-142px',
             보 : '-284px',
         };
+        let resultdiv = document.querySelector('.result');
         // let dictionary2 = {
         //     0 : '바위',
         //     '-142px' : '가위',
@@ -65,7 +67,7 @@
 
                 clearInterval(interval);
 
-                setInterval(function(){
+                setTimeout(function(){
                     interval = setInterval(function() {
                         if(left === dictionary.바위){
                             left = dictionary.가위;
@@ -82,31 +84,45 @@
                 let myChoice = this.textContent;    
                 console.log(myChoice, choice(left));
 
-                if(myChoice === '가위'){
-                    if(choice(left) === '가위'){
-                        console.log('비김');
-                    }else if(choice(left) === '바위'){
-                        console.log('짐');
-                    }else{
-                        console.log('이김');
-                    }
-                }else if(myChoice === '바위'){
-                    if(choice(left) === '가위'){
-                        console.log('이김');
-                    }else if(choice(left) === '바위'){
-                        console.log('비김');
-                    }else{
-                        console.log('짐');
-                    }
-                }else if(myChoice ==='보'){
-                    if(choice(left) === '가위'){
-                        console.log('짐');
-                    }else if(choice(left) === '바위'){
-                        console.log('이김');
-                    }else{
-                        console.log('비김');
-                    }
+                score = {
+                    가위 : -1,
+                    바위 : 0,
+                    보: 1,
+                };
+
+                if(score[myChoice] === score[choice(left)]){
+                    resultdiv.textContent = '비겼습니다.';
+                }else if([-1,2].includes(score[myChoice] - score[choice(left)])){
+                    resultdiv.textContent= '졌습니다';
+                }else{
+                    resultdiv.textContent = '이겼습니다.';
                 }
+
+                // if(myChoice === '가위'){
+                //     if(choice(left) === '가위'){
+                //         console.log('비김');
+                //     }else if(choice(left) === '바위'){
+                //         console.log('짐');
+                //     }else{
+                //         console.log('이김');
+                //     }
+                // }else if(myChoice === '바위'){
+                //     if(choice(left) === '가위'){
+                //         console.log('이김');
+                //     }else if(choice(left) === '바위'){
+                //         console.log('비김');
+                //     }else{
+                //         console.log('짐');
+                //     }
+                // }else if(myChoice ==='보'){
+                //     if(choice(left) === '가위'){
+                //         console.log('짐');
+                //     }else if(choice(left) === '바위'){
+                //         console.log('이김');
+                //     }else{
+                //         console.log('비김');
+                //     }
+                // }
             });
         });
         
