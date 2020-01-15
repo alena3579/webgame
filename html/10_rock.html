@@ -25,6 +25,10 @@
         <button id="paper" class="btn">보</button>
     </div>
 
+    <div class="result">
+
+    </div>
+    
     <script>
         let left = 0;
         let dictionary = {
@@ -37,6 +41,7 @@
         //     '-142px' : '가위',
         //     '-284px' : '보'
         // }
+        let result = document.querySelector('.result');
 
         console.log(Object.entries(dictionary));
         function choice (left) {
@@ -47,66 +52,71 @@
         }
 
 
-        let interval = setInterval(function() {
-            if(left === dictionary.바위){
-                left = dictionary.가위;
-            }else if(left === dictionary.가위){
-                left = dictionary.보;
-            }else{
-                left = dictionary.바위;
-            }
-            document.querySelector('#computer').style.background = 'url("../img/23182267.jpg")'+ left +' 0';
+        let interval; 
+        function intervalMaker() {
+            interval = setInterval(function() {
+                if(left === dictionary.바위){
+                    left = dictionary.가위;
+                }else if(left === dictionary.가위){
+                    left = dictionary.보;
+                }else{
+                    left = dictionary.바위;
+                }
+                document.querySelector('#computer').style.background = 'url("../img/23182267.jpg")'+ left +' 0';
+            }, 100);
+        }
+        intervalMaker();
 
-        }, 100);
-
+        let score = {
+            가위 : -1,
+            바위 : 0,
+            보 : 1,
+        }
         
         document.querySelectorAll('.btn').forEach( function(btn){
             btn.addEventListener('click',function () {
 
                 clearInterval(interval);
 
-                setInterval(function(){
-                    interval = setInterval(function() {
-                        if(left === dictionary.바위){
-                            left = dictionary.가위;
-                        }else if(left === dictionary.가위){
-                            left = dictionary.보;
-                        }else{
-                            left = dictionary.바위;
-                        }
-                        document.querySelector('#computer').style.background = 'url("../img/23182267.jpg")'+ left +' 0';
-
-                    }, 100);
+                setTimeout(function(){
+                    intervalMaker();
                 },1000);
 
                 let myChoice = this.textContent;    
                 console.log(myChoice, choice(left));
 
-                if(myChoice === '가위'){
-                    if(choice(left) === '가위'){
-                        console.log('비김');
-                    }else if(choice(left) === '바위'){
-                        console.log('짐');
-                    }else{
-                        console.log('이김');
-                    }
-                }else if(myChoice === '바위'){
-                    if(choice(left) === '가위'){
-                        console.log('이김');
-                    }else if(choice(left) === '바위'){
-                        console.log('비김');
-                    }else{
-                        console.log('짐');
-                    }
-                }else if(myChoice ==='보'){
-                    if(choice(left) === '가위'){
-                        console.log('짐');
-                    }else if(choice(left) === '바위'){
-                        console.log('이김');
-                    }else{
-                        console.log('비김');
-                    }
+                if((score[myChoice] - score[choice(left)]) === 0){
+                    result.textContent = '비겼습니다';
+                }else if([1, -2].includes(score[myChoice] - score[choice(left)]) ){
+                    result.textContent = '이겼다~!야호~~';
+                }else{
+                    result.textContent = '졌습니다ㅠㅠ';
                 }
+                // if(myChoice === '가위'){
+                //     if(choice(left) === '가위'){
+                //         result.textContent = '비겼습니다.';
+                //     }else if(choice(left) === '바위'){
+                //         result.textContent = '졌습니다ㅠㅠ';
+                //     }else{
+                //         result.textContent = '이겼습니다~!';
+                //     }
+                // }else if(myChoice === '바위'){
+                //     if(choice(left) === '가위'){
+                //         result.textContent = '이겼습니다~!';
+                //     }else if(choice(left) === '바위'){
+                //         result.textContent = '비겼습니다.';
+                //     }else{
+                //         result.textContent = '졌습니다ㅠㅠ';
+                //     }
+                // }else if(myChoice ==='보'){
+                //     if(choice(left) === '가위'){
+                //         result.textContent = '졌습니다ㅠㅠ';
+                //     }else if(choice(left) === '바위'){
+                //         result.textContent = '이겼습니다~!';
+                //     }else{
+                //         result.textContent = '비겼습니다.';
+                //     }
+                // }
             });
         });
         

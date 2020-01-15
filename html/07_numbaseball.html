@@ -7,7 +7,107 @@
     <title>숫자야구</title>
 </head>
 <body>
-    <!-- <h1>2스트라이크 1볼</h1>
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        body{
+
+        }
+        .wrap{
+            text-align: center;
+
+        }
+        h2{
+            
+        }
+    </style>
+    
+    <div id="wrap">
+        <h2>숫자야구</h2>
+        <p>1~9까지의 숫자 4개를 입력해주세요.(빈칸, 쉼표 없이 입력해주세요)</p>
+        <div class="inner">
+            
+        </div>
+    </div>
+    <script>
+        //숫자 뽑기
+        let numlist;
+        let picknum;
+        numlist = [1,2,3,4,5,6,7,8,9];
+        picknum = [];
+        for(let i = 0; i < 4; i++){
+            let pick = numlist.splice(Math.floor(Math.random()*(9-i)),1)[0]
+            picknum.push(pick);
+        }
+        console.log(picknum);
+
+        //화면 설계
+        let inner = document.querySelector('.inner');
+
+        let form = document.createElement('form');
+        inner.append(form);
+        let input = document.createElement('input');
+        input.type = Number;
+        input.maxLength = 4;
+        form.append(input);
+        let button = document.createElement('button');
+        button.textContent = '입력!';
+        form.append(button);
+        let title = document.createElement('h3');
+        title.textContent = ''
+        inner.append(title);
+
+        let tryNum = 0;
+        //버튼 클릭시 이벤트 호출
+        form.addEventListener('submit', function (e){
+            e.preventDefault();
+
+            let inputNum = input.value;
+            
+            console.log(Number(inputNum), Number(picknum.join('')));
+            if(Number(inputNum) === Number(picknum.join(''))){
+                title.textContent = '정답!';
+                numlist = [1,2,3,4,5,6,7,8,9];
+                picknum = [];
+                for(let i = 0; i < 4; i++){
+                    let pick = numlist.splice(Math.floor(Math.random()*(9-i)),1)[0]
+                    picknum.push(pick);
+                }
+                console.log(picknum);
+            }else{
+                let strike = 0;
+                let ball = 0;
+                let inputArray = inputNum.split('');
+                tryNum ++;
+                console.log(tryNum);
+                if(tryNum > 10){
+                    title.textContent = '10번 넘게 틀려서 실패! 답은' + picknum.join(',') + '이였습니다!'
+                    numlist = [1,2,3,4,5,6,7,8,9];
+                    picknum = [];
+                    for(let i = 0; i < 4; i++){
+                        let pick = numlist.splice(Math.floor(Math.random()*(9-i)),1)[0]
+                        picknum.push(pick);
+                    }
+                    console.log(picknum);
+                    tryNum = 0;
+                }else{
+                    for(let i =0; i<3; i++){
+                        if(Number(inputArray[i]) === picknum[i]){
+                            strike ++;
+                        }else if(picknum.indexOf(Number(inputArray[i]) > -1)){
+                            ball ++;
+                        }
+                    }
+                    title.textContent = strike + '스트라이크' + ball + '볼입니다! 남은횟수는 ' + (10-tryNum) + '번 입니다.'
+                }
+            }
+               
+        });
+
+
+    </script>
+
+
+<!-- <h1>2스트라이크 1볼</h1>
     <form>
         <input />
         <button>입력</button>
@@ -88,81 +188,5 @@
         });
 
     </script> -->
-
-    <script>
-        //숫자 뽑기
-        let numlist;
-        let picknum;
-        numlist = [1,2,3,4,5,6,7,8,9];
-        picknum = [];
-        for(let i = 0; i < 4; i++){
-            let pick = numlist.splice(Math.floor(Math.random()*(9-i)),1)[0]
-            picknum.push(pick);
-        }
-        console.log(picknum);
-
-        //화면 설계
-        let title = document.createElement('h1');
-        title.textContent = '게임 시작~!'
-        document.body.append(title);
-        let form = document.createElement('form');
-        document.body.append(form);
-        let input = document.createElement('input');
-        input.type = Number;
-        input.maxLength = 4;
-        form.append(input);
-        let button = document.createElement('button');
-        button.textContent = '입력!';
-        form.append(button);
-
-        let tryNum = 0;
-        //버튼 클릭시 이벤트 호출
-        form.addEventListener('submit', function (e){
-            e.preventDefault();
-
-            let inputNum = input.value;
-            
-            console.log(Number(inputNum), Number(picknum.join('')));
-            if(Number(inputNum) === Number(picknum.join(''))){
-                title.textContent = '정답!';
-                numlist = [1,2,3,4,5,6,7,8,9];
-                picknum = [];
-                for(let i = 0; i < 4; i++){
-                    let pick = numlist.splice(Math.floor(Math.random()*(9-i)),1)[0]
-                    picknum.push(pick);
-                }
-                console.log(picknum);
-            }else{
-                let strike = 0;
-                let ball = 0;
-                let inputArray = inputNum.split('');
-                tryNum ++;
-                console.log(tryNum);
-                if(tryNum > 10){
-                    title.textContent = '10번 넘게 틀려서 실패! 답은' + picknum.join(',') + '이였습니다!'
-                    numlist = [1,2,3,4,5,6,7,8,9];
-                    picknum = [];
-                    for(let i = 0; i < 4; i++){
-                        let pick = numlist.splice(Math.floor(Math.random()*(9-i)),1)[0]
-                        picknum.push(pick);
-                    }
-                    console.log(picknum);
-                    tryNum = 0;
-                }else{
-                    for(let i =0; i<3; i++){
-                        if(Number(inputArray[i]) === picknum[i]){
-                            strike ++;
-                        }else if(picknum.indexOf(Number(inputArray[i]) > -1)){
-                            ball ++;
-                        }
-                    }
-                    title.textContent = strike + '스트라이크' + ball + '볼입니다! 남은횟수는 ' + (10-tryNum) + '번 입니다.'
-                }
-            }
-               
-        });
-
-
-    </script>
 </body>
 </html>
