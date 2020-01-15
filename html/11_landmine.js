@@ -59,11 +59,12 @@ document.querySelector('#exc').addEventListener('click',function(){
                     e.currentTarget.textContent = '펑!';
                 }else{
                     let 주변 = [                       
-                        dataset[줄][칸-1],                    , dataset[줄][칸+1],
+                        dataset[줄][칸-1], dataset[줄][칸+1]
                     ];
                     if(dataset[줄-1]){
                         주변 = 주변.concat([dataset[줄-1][칸-1], dataset[줄-1][칸], dataset[줄-1][칸+1]]);
-                    }else if(dataset[줄+1]){
+                    }
+                    if(dataset[줄+1]){
                         주변 = 주변.concat([dataset[줄+1][칸-1], dataset[줄+1][칸], dataset[줄+1][칸+1]]);
                     }
                     console.log(주변);
