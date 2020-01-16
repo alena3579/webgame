@@ -80,24 +80,34 @@
             결과창.appendChild(공);
         }
 
-        setTimeout(function 비동기콜백함수(){
-            공꾸미기(당첨숫자들[0],결과창);
-        }, 1000);
-        setTimeout(function 비동기콜백함수(){
-            공꾸미기(당첨숫자들[1],결과창);
-        }, 2000);
-        setTimeout(function 비동기콜백함수(){
-            공꾸미기(당첨숫자들[2],결과창);
-        }, 3000);
-        setTimeout(function 비동기콜백함수(){
-            공꾸미기(당첨숫자들[3],결과창);
-        }, 4000);
-        setTimeout(function 비동기콜백함수(){
-            공꾸미기(당첨숫자들[4],결과창);
-        }, 5000);
-        setTimeout(function 비동기콜백함수(){
-            공꾸미기(당첨숫자들[5],결과창);
-        }, 6000);
+        // setTimeout(function 비동기콜백함수(){
+        //     공꾸미기(당첨숫자들[0],결과창);
+        // }, 1000);
+        // setTimeout(function 비동기콜백함수(){
+        //     공꾸미기(당첨숫자들[1],결과창);
+        // }, 2000);
+        // setTimeout(function 비동기콜백함수(){
+        //     공꾸미기(당첨숫자들[2],결과창);
+        // }, 3000);
+        // setTimeout(function 비동기콜백함수(){
+        //     공꾸미기(당첨숫자들[3],결과창);
+        // }, 4000);
+        // setTimeout(function 비동기콜백함수(){
+        //     공꾸미기(당첨숫자들[4],결과창);
+        // }, 5000);
+        // setTimeout(function 비동기콜백함수(){
+        //     공꾸미기(당첨숫자들[5],결과창);
+        // }, 6000);
+
+        for(let i = 0; i < 당첨숫자들.length; i++){
+            (function 클로져(j){
+                setTimeout(function (){
+                    공꾸미기(당첨숫자들[j],결과창);
+                }, (j+1)*1000);
+            })(i);
+        }
+
+
 
         setTimeout(function 비동기콜백함수(){
             let 보너스칸 = document.getElementsByClassName('보너스')[0];
