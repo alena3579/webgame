@@ -1,9 +1,12 @@
 let tbody = document.querySelector('table tbody');
 let dataset = [];
+let flag = false;
 
 document.querySelector('#exc').addEventListener('click',function(){
     tbody.innerHTML = '';
     dataset = [];
+    let flag = false;
+    document.querySelector('#result').textContent = '';
     let hor = document.querySelector('#hor').value;
     let ver = document.querySelector('#ver').value;
     let mine = document.querySelector('#mine').value;
@@ -28,6 +31,7 @@ document.querySelector('#exc').addEventListener('click',function(){
         let tr = document.createElement('tr');
         dataset.push(arr);
         for(let j = 0; j < hor; j++){
+            arr.push(0);
             let td = document.createElement('td');
             td.addEventListener('contextmenu', function(e){
                 e.preventDefault();
@@ -58,9 +62,13 @@ document.querySelector('#exc').addEventListener('click',function(){
                 
                 //클릭했을때 주변 지뢰 개수
                 e.currentTarget.classList.add('opened');
+
+                
                 if(dataset[줄][칸] === 'x'){
                     e.currentTarget.textContent = '펑!';
+                    document.querySelector('#result').textContent= '실패!';
                 }else{
+                    dataset[줄][칸] = 1;
                     let 주변 = [                       
                         dataset[줄][칸-1], dataset[줄][칸+1]
                     ];
@@ -74,7 +82,7 @@ document.querySelector('#exc').addEventListener('click',function(){
                     let 주변지뢰개수 = 주변.filter(function(v){
                         return v === 'x';
                     }).length;
-                    e.currentTarget.textContent = 주변지뢰개수;
+                    e.currentTarget.textContent = 주변지뢰개수 || '';
 
                     //주변칸 지뢰가 0개면
                     if(주변지뢰개수 === 0){
@@ -100,13 +108,19 @@ document.querySelector('#exc').addEventListener('click',function(){
                             ]);
                         }
                         
-                        주변칸.filter(function(v) {return !!v}).forEach(function(옆칸){
-                            옆칸.click();
+                        주변칸.filter(function(v) {return !!v; }).forEach(function(옆칸){
+                            let 부모tr = 옆칸.parentNode;
+                            let 부모tbody = 옆칸.parentNode.parentNode;
+                            let 옆칸칸 = Array.prototype.indexOf.call(부모tr.children, 옆칸);  
+                            let 옆칸줄 = Array.prototype.indexOf.call(부모tbody.children, 부모tr);  
+                            if(dataset[옆칸줄][옆칸칸] !== 1 ){
+                                옆칸.click();
+                            }
                         });
                     }
                 }
             });
-            arr.push(1);
+            // arr.push(1);
             tr.appendChild(td);
             // td.textContent = 1;
         }
