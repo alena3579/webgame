@@ -1,11 +1,13 @@
 let tbody = document.querySelector('table tbody');
 let dataset = [];
 let flag = false;
+let open = 0;
 
 document.querySelector('#exc').addEventListener('click',function(){
     tbody.innerHTML = '';
     dataset = [];
     let flag = false;
+    open = 0;
     document.querySelector('#result').textContent = '';
     let hor = document.querySelector('#hor').value;
     let ver = document.querySelector('#ver').value;
@@ -55,6 +57,12 @@ document.querySelector('#exc').addEventListener('click',function(){
                 // console.log(dataset);
             });
             td.addEventListener('click', function(e){
+                if(flag === true){
+                    return;
+                }
+
+                open += 1;
+
                 let 부모tr = e.currentTarget.parentNode;
                 let 부모tbody = e.currentTarget.parentNode.parentNode;
                 let 칸 = Array.prototype.indexOf.call(부모tr.children, e.currentTarget);  
@@ -67,6 +75,7 @@ document.querySelector('#exc').addEventListener('click',function(){
                 if(dataset[줄][칸] === 'x'){
                     e.currentTarget.textContent = '펑!';
                     document.querySelector('#result').textContent= '실패!';
+                    flag = true;
                 }else{
                     dataset[줄][칸] = 1;
                     let 주변 = [                       
@@ -118,6 +127,10 @@ document.querySelector('#exc').addEventListener('click',function(){
                             }
                         });
                     }
+                }
+                if(open === hor * ver - mine){
+                    flag = true;
+                    document.getElementById('result').textContent = '성공';
                 }
             });
             // arr.push(1);
