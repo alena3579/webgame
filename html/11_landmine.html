@@ -11,14 +11,23 @@
             text-align: cetner;
         }
         td{
-            border: 1px solid #000;
-            width: 20px;
-            height: 20px;
+            /* border: 1px solid #000; */
+            width: 15px;
+            height: 15px;
             color: #fff;
-            background: #333;
+            background: url(../img/sprite100.gif) no-repeat;
+            background-position: 0px -39px;
+            font-size: 10px;
+        }
+        td #timer{
+            background-color: url(../img/sprite100.gif) no-repeat;
+            background-position: 0 0;
+            width: 13px;
+            height: 23px;
         }
         td.opened{
-            background: #fff;
+            background: url(../img/sprite100.gif) no-repeat;
+            background-position: 0 -23px;
             color: #333;
         }
         td.flag{
@@ -27,6 +36,7 @@
         td.question{
             background: orange;
         }
+        
     </style>
 </head>
 <body>
@@ -38,8 +48,8 @@
     <table>
         <thead>
             <tr>
-                <td>
-                    <span id="timer">0</span>초
+                <td class="timer">
+                    <span id="timer"></span>초
                 </td>
             </tr>
         </thead>

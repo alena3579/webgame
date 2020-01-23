@@ -68,14 +68,14 @@ document.querySelector('#exc').addEventListener('click',function(){
                 }else if(e.currentTarget.textContent === '!'){
                     e.currentTarget.textContent = '?';
                     e.currentTarget.classList.add('question');
-                    e.currentTarget.classList.romove('flag');
+                    e.currentTarget.classList.remove('flag');
                     if(dataset[줄][칸] === code.깃발지뢰 ){
                         dataset[줄][칸] = code.물음표지뢰;
                     }else{
                         dataset[줄][칸] = code.물음표;
                     }
                 }else if(e.currentTarget.textContent === "?"){
-                    e.currentTarget.classList.romove('question');
+                    e.currentTarget.classList.remove('question');
                     if(dataset[줄][칸] === code.물음표지뢰){
                         e.currentTarget.textContent = 'x';
                         dataset[줄][칸] = code.지뢰;
