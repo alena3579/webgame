@@ -12,15 +12,22 @@ let code = {
     보통칸 : 0,
 }
 
+
 document.querySelector('#exc').addEventListener('click',function(){
+    resetClock();
+    startClock();
     tbody.innerHTML = '';
     dataset = [];
     flag = false;
     open = 0;
     document.querySelector('#result').textContent = '';
+    document.getElementById('expression').classList.remove('fail');
+    document.getElementById('expression').classList.remove('success');
     let hor = document.querySelector('#hor').value;
     let ver = document.querySelector('#ver').value;
     let mine = document.querySelector('#mine').value;
+    let curMine = mine;
+    setMine( curMine.padStart(3, '0'));
     // console.log(hor,ver,mine);
 
     //0부터 99까지 배열 만듬
@@ -60,15 +67,18 @@ document.querySelector('#exc').addEventListener('click',function(){
                 if(e.currentTarget.textContent === '' || e.currentTarget.textContent === 'x'){
                     e.currentTarget.textContent = '!';
                     e.currentTarget.classList.add('flag');
+                    curMine--;
                     if(dataset[줄][칸] === code.지뢰 ){
                         dataset[줄][칸] = code.깃발지뢰;
                     }else{
                         dataset[줄][칸] = code.깃발;
                     }
+
                 }else if(e.currentTarget.textContent === '!'){
                     e.currentTarget.textContent = '?';
                     e.currentTarget.classList.add('question');
                     e.currentTarget.classList.remove('flag');
+                    curMine++;
                     if(dataset[줄][칸] === code.깃발지뢰 ){
                         dataset[줄][칸] = code.물음표지뢰;
                     }else{
@@ -84,10 +94,12 @@ document.querySelector('#exc').addEventListener('click',function(){
                         dataset[줄][칸] = code.보통칸;
                     }
                 }
+                setMine(String(curMine).padStart(3, '0'));
                 // console.log(dataset);
             });
             td.addEventListener('click', function(e){
                 if(flag){
+                    alert('더이상 게임을 진행할 수 없습니다.');
                     return;
                 }
                 let 부모tr = e.currentTarget.parentNode;
@@ -106,9 +118,13 @@ document.querySelector('#exc').addEventListener('click',function(){
                 open += 1;
                 
                 if(dataset[줄][칸] === code.지뢰){
-                    e.currentTarget.textContent = '펑!';
-                    document.querySelector('#result').textContent= '실패!';
+                    // e.currentTarget.textContent = '펑!';
+                    e.currentTarget.classList.add('fail');
+                    e.currentTarget.classList.remove('flag');
+                    document.getElementById('result').textContent= '실패!';
+                    document.getElementById('expression').classList.add('fail');
                     flag = true;
+                    stopClock();
                 }else{
                     dataset[줄][칸] = code.연칸;
                     let 주변 = [                       
@@ -124,8 +140,8 @@ document.querySelector('#exc').addEventListener('click',function(){
                     let 주변지뢰개수 = 주변.filter(function(v){
                         return [code.지뢰,code.깃발지뢰, code.물음표지뢰].includes(v);
                     }).length;
-                    e.currentTarget.textContent = 주변지뢰개수 || '';
-
+                    // e.currentTarget.textContent = 주변지뢰개수 || '';
+                    e.currentTarget.classList.add('count'+주변지뢰개수);
                     dataset[줄][칸] = code.연칸;
 
                     //주변칸 지뢰가 0개면
@@ -167,6 +183,8 @@ document.querySelector('#exc').addEventListener('click',function(){
                 if(open === hor * ver - mine){
                     flag = true;
                     document.getElementById('result').textContent = '성공';
+                    document.getElementById('expression').classList.add('success');
+                    stopClock();
                 }
 
 
@@ -199,3 +217,66 @@ document.querySelector('#exc').addEventListener('click',function(){
 // }
 
 // 재귀함수(1);
+
+let timerId;
+let time = 0;
+let  hour, min, sec;
+let oneSpan = document.getElementById('timer3');
+let tenSpan = document.getElementById('timer2');
+let hunSpan = document.getElementById('timer1');
+let cHunSpan = document.getElementById('count1');
+let cTenSpan = document.getElementById('count2');
+let cOneSpan = document.getElementById('count3');
+
+function printTime() {
+    time++;
+    // stopwatch.innerText = getTimeFormatString();
+    let nbrTime = getTimeFormatString();
+    
+    let one = nbrTime[2];
+    let ten = nbrTime[1];
+    let hundred = nbrTime[0];
+    oneSpan.style.backgroundPositionX =  Number(one) * -13 + 'px';
+    tenSpan.style.backgroundPositionX = Number(ten) * -13 + 'px';
+    hunSpan.style.backgroundPositionX = Number(hundred) * -13 + 'px';
+}
+//시계 시작 - 재귀호출로 반복실행
+function startClock() {
+    printTime();
+    stopClock();
+    timerId = setTimeout(startClock, 1000);
+}
+
+//시계 중지
+function stopClock() {
+    if (timerId != null) {
+        clearTimeout(timerId);
+    }
+}
+// 시계 초기화
+function resetClock() {
+    stopClock()
+    // stopwatch.innerText = "00:00:00";
+    time = 0;
+}
+// 시간(int)을 시, 분, 초 문자열로 변환
+function getTimeFormatString() {
+    // hour = parseInt(String(time / (60 * 60)));
+    // min = parseInt(String((time - (hour * 60 * 60)) / 60));
+    sec = time % 60;
+
+    // return String(hour).padStart(2, '0') + ":" + String(min).padStart(2, '0') + ":" + String(sec).padStart(2, '0');
+    return String(sec).padStart(3, '0');
+}
+
+function setMine(mine) {
+    console.log(mine);
+    // let mine = document.querySelector('#mine').value.padStart(3, '0');
+    let one = mine[2];  // 9
+    let ten = mine[1];  // 1
+    let hun = mine[0];  // 0
+
+    cOneSpan.style.backgroundPositionX = Number(one) * -13 + 'px';
+    cTenSpan.style.backgroundPositionX = Number(ten) * -13 + 'px';
+    cHunSpan.style.backgroundPositionX = Number(hun) * -13 + 'px';
+}

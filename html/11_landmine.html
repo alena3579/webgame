@@ -5,52 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>지뢰찾기</title>
-    <style>
-        table{
-            border-collapse: collapse;
-            text-align: cetner;
-            border: 2px solid #aaa;
-        }
-        td{
-            /* border: 1px solid #000; */
-            width: 15px;
-            height: 15px;
-            color: #fff;
-            background: url(../img/sprite100.gif) no-repeat;
-            background-position: 0px -39px;
-            font-size: 10px;
-        }
-        td #timer{
-            background-color: url(../img/sprite100.gif) no-repeat;
-            background-position: 0 0;
-            width: 13px;
-            height: 23px;
-        }
-        td.opened{
-            background: url(../img/sprite100.gif) no-repeat;
-            background-position: 0 -23px;
-            color: #333;
-        }
-        td.flag{
-            background: red;
-        }
-        td.question{
-            background: orange;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="./11_landmine.css">
+   
 </head>
 <body>
     <input id="hor" type="number" placeholder="가로" value="10">
     <input id="ver" type="number" placeholder="세로" value="10">
     <input id="mine" type="number" placeholder="지뢰" value="20">
     <button id="exc">실행</button>
+  
 
     <table>
         <thead>
             <tr>
-                <td class="timer">
-                    <span id="timer"></span>초
+                <td class="head" colspan="10">
+                    <div id="count">
+                        <span id="count1"></span>
+                        <span id="count2"></span>
+                        <span id="count3"></span>
+                    </div>
+                    <div id="exp">
+                        <span id="expression"></span>
+                    </div>
+                    <div id="timer">
+                        <span id="timer1"></span>
+                        <span id="timer2"></span>
+                        <span id="timer3"></span>
+                    </div>
                 </td>
             </tr>
         </thead>
